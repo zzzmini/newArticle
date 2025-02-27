@@ -1,0 +1,26 @@
+html {
+    position: relative;
+    min-height : 100%;
+    margin : 0;
+}
+
+body {
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer {
+    position: absolute;
+    left : 0;
+    right : 0;
+    bottom : 0;
+    width : 100%;
+    padding : 15px, 0;
+    text-align: center;
+    margin-top : 50px;
+}
+
+.content {
+    margin : 50px 200px 50px 200px;
+}
