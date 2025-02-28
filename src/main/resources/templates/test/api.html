@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/jquery.js}"></script>
+</head>
+<body>
+    userid : <input type="text" id="userid"><br>
+    password : <input type="text" id="password"><br>
+    <button id="btnApi">Send</button><br>
+    <button id="btnResponse">Response</button><br>
+    <button id="btnArray">Array</button><br>
+    <button id="btnDelete">Delete</button><br>
+    <script>
+      $(document).ready(function(){
+        $("#btnApi").on("click", function(){
+           event.preventDefault();
+           if($("#userid").val()=="") {
+             $("#userid").focus();
+             return;
+           }
+           if($("#password").val()=="") {
+             $("#password").focus();
+             return;
+           }
+          // 아이디와 패스워드입력 후 전송하면 서버에 출력
+          $.ajax({
+            url : 'apiPostTest',
+            type : 'post',
+            datatype : 'text',
+            headers : {
+                "Content-Type" : "application/json",
+            },
+            data : JSON.stringify({
+                'userid' : $("#userid").val(),
+                'password' : $("#password").val(),
+            }),
+            success : function(data, status, xhr){
+                console.log(data)
+            },
+            error : function(xhr, status, error){
+                console.log(error)
+            }
+          })
+        })
+      })
+
+      $(document).ready(function(){
+        $("#btnResponse").on("click", function(){
+          alert("btnResponse")
+        })
+      })
+      $(document).ready(function(){
+        $("#btnArray").on("click", function(){
+          alert("btnArray")
+        })
+      })
+      $(document).ready(function(){
+        $("#btnDelete").on("click", function(){
+          alert("btnDelete")
+        })
+      })
+    </script>
+</body>
+</html>
