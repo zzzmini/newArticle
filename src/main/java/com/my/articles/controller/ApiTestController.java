@@ -4,9 +4,11 @@ import com.my.articles.dto.LoginDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ApiTestController {
@@ -24,5 +26,47 @@ public class ApiTestController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(info);
+    }
+
+    @PostMapping("/getResponse")
+    @ResponseBody
+    public LoginDTO postResponse() {
+        return new LoginDTO("안유진", "1233");
+    }
+
+    @PostMapping("/apiPostArrayTest")
+    public ResponseEntity<Map<String, String>> apiPostArraryTest(
+            @RequestBody List<LoginDTO> dtos
+            ) {
+        dtos.stream().forEach(x -> System.out.println(x));
+        Map<String, String> userData = new HashMap<>();
+        userData.put("id", dtos.get(1).getUserid());
+        userData.put("pw", dtos.get(1).getPassword());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userData);
+    }
+
+    @DeleteMapping("/apiTest")
+    @ResponseBody
+    public String apiHttpMethodTest() {
+        // 삭제 처리
+        String message = "Delete Mapping";
+        return message;
+    }
+
+    @PatchMapping("/apiTest")
+    @ResponseBody
+    public String apiPatchTest() {
+        // 삭제 처리
+        String message = "Patch Mapping";
+        return message;
+    }
+    @PutMapping("/apiTest")
+    @ResponseBody
+    public String apiPutTest() {
+        // 삭제 처리
+        String message = "Put Mapping";
+        return message;
     }
 }

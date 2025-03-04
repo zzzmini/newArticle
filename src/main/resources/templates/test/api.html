@@ -46,21 +46,62 @@
         })
       })
 
-      $(document).ready(function(){
-        $("#btnResponse").on("click", function(){
-          alert("btnResponse")
-        })
+    $("#btnResponse").on("click", function(){
+      $.ajax({
+        url : 'getResponse',
+        type : 'post',
+        datatype : 'json',
+        data : '',
+        success : function(data, status, xhr){
+            console.log(data)
+        },
+        error : function(xhr, status, error){
+            console.log(error)
+        }
       })
-      $(document).ready(function(){
-        $("#btnArray").on("click", function(){
-          alert("btnArray")
-        })
+    })
+
+
+    $("#btnArray").on("click", function(){
+        let jang = {
+            'userid' : $("#userid").val(),
+            'password' : $("#password").val(),
+        }
+
+        let jin = {
+            'userid' : '안유진',
+            'password' : '1234',
+        }
+      $.ajax({
+        url : 'apiPostArrayTest',
+        type : 'post',
+        datatype : 'json',
+        headers : {
+            "Content-Type" : "application/json",
+        },
+        data : JSON.stringify([jang, jin]),
+        success : function(data, status, xhr){
+            console.log(data)
+        },
+        error : function(xhr, status, error){
+            console.log(error)
+        }
       })
-      $(document).ready(function(){
-        $("#btnDelete").on("click", function(){
-          alert("btnDelete")
-        })
+    })
+    $("#btnDelete").on("click", function(){
+      $.ajax({
+        url : 'apiTest',
+        type : 'put',
+        datatype : 'json',
+        data : '',
+        success : function(data, status, xhr){
+            console.log(data)
+        },
+        error : function(xhr, status, error){
+            console.log(error)
+        }
       })
+  })
     </script>
 </body>
 </html>
