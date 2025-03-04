@@ -20,7 +20,8 @@ public class ApiTestController {
     // @RequestBody : Json 형식을 -> Object(DTO)
     // Return Type : ResponseEntity -> Object 전송
     @PostMapping("/apiPostTest")
-    public ResponseEntity<String> apiPostTest(@RequestBody LoginDTO dto) {
+    public ResponseEntity<String> apiPostTest(
+            @RequestBody LoginDTO dto) {
         String info = dto.getUserid() + " / " + dto.getPassword();
         System.out.println("====== info : " + info);
         return ResponseEntity
