@@ -30,6 +30,8 @@
                 th:object="${comment}">
           <div class="card-header">
               <span th:text="*{nickname}">Featured</span>
+<!--              <a th:href="@{|comments/view/${comment.commentId}|}" class="btn btn-sm btn-outline-primary"-->
+<!--                 id="comment-update-btn">수정</a>-->
               <a th:href="@{|comments/view/${comment.commentId}|}" class="btn btn-sm btn-outline-primary"
                  id="comment-update-btn">수정</a>
 <!--              <a th:href="@{|comments/${comment.commentId}|}" class="btn btn-sm btn-outline-primary"-->
@@ -66,6 +68,14 @@
       </form>
       <script th:inline="javascript">
           $(document).ready(function(){
+          // 댓글 수정
+            $(document).on("click", "#comment-update-btn", function(){
+                let commentId = $(this).next().next().val();
+                let sendUrl = "/articles/comments/view/" + commentId;
+                location.href = sendUrl;
+            })
+
+
             // 댓글 삭제
             $(document).on("click", "#comment-delete-btn", function(){
                 let commentId = $(this).next().val();

@@ -10,9 +10,10 @@
 </head>
 <body>
   <div layout:fragment="content" class="content">
-      <form class="container"
-            th:action="@{|/articles/${articleId}/comments/${dto.commentId}|}"
-            method="post">
+<!--      <form class="container"-->
+<!--            th:action="@{|/articles/${articleId}/comments/${dto.commentId}|}"-->
+<!--            method="post">-->
+      <form class="container">
           <div class="mb3">
               <label class="form-label"> 닉네임</label>
               <input type="text" class="form-control" name="title"
@@ -23,9 +24,52 @@
               <textarea class="form-control" row="3" name="content"
                         id="update-comment-body" th:field="${dto.body}"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary" id="comment-update-btn">댓글수정</button>
+<!--          <button type="submit" class="btn btn-primary" -->
+<!--                  id="comment-update-btn">댓글수정</button>-->
+          <button type="button" class="btn btn-primary"
+                  id="comment-update-btn">댓글수정</button>
           <a href="">Go to Article List</a>
       </form>
+      <script th:inline="javascript">
+          $(document).ready(function(){
+            $("#comment-update-btn").on("click", function(){
+            // 댓글 입력
+                event.preventDefault();
+                if($("#update-comment-nickname").val()==''){
+                    alert("닉네임을 입력하세요");
+                    $("#update-comment-nickname").focus();
+                    return;
+                }
+                if($("#update-comment-body").val()==''){
+                    alert("댓글을 입력하세요");
+                    $("#update-comment-body").focus();
+                    return;
+                }
+
+                let sendUrl = `/api/comments/[[${dto.commentId}]]`;
+                let updateComment = {
+                      "commentId" : `[[${dto.commentId}]]`,
+                      "nickname" : $("#update-comment-nickname").val() ,
+                      "body" : $("#update-comment-body").val()
+                    }
+
+                $.ajax({
+                    url : sendUrl,
+                    type : "PATCH",
+                    dataType : "json",
+                    data : JSON.stringify(updateComment),
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                    success : function(data, status, xhr){
+                        alert(data.message);
+                        location.href = `/articles/[[${articleId}]]`
+                    },
+                    error : function(xhr, status, error){},
+                })
+            })
+          })
+      </script>
   </div>
 </body>
 </html>
